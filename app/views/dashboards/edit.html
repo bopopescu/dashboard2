@@ -4,6 +4,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+      <link rel="stylesheet" href="static/css/styles.css">
       <title>Edit user {{id}}</title>
    </head>
    <body>
@@ -13,7 +14,7 @@
                <li role="presentation"><a href="/dashboard">Dashboard</a></li>
                <li role="presentation"><a href="/users/{{session['id']}}/edit">Profile</a></li>
                <li role="presentation"><a href="/users/{{session['id']}}/wall">My Wall</a></li>
-               <li role="presentation"><a href="/logout">Log Off</a></li>
+               <p class="navbar-text pull-right"><a href="/logout">Log Out</a></p>
             </ul>
          </nav>
          <h2>Edit User Data</h2>
@@ -45,24 +46,24 @@
          </table>
          <form class="col-md-4" action="/users/{{id}}/update" method="post">
             Email Address:<br>
-            <input type="text" name="email"><br>
+            <input type="text" name="email"><br><br>
             First Name:<br>
-            <input type="text" name="first_name"><br>
+            <input type="text" name="first_name"><br><br>
             Last Name:<br>
-            <input type="text" name="last_name"><br>
-            <br>
+            <input type="text" name="last_name"><br><br>
+
             <input class="btn btn-primary" type="submit" name="submit" value="Update Info">
          </form>
          {% if session['user_level'] == 1 or id == session['id'] %}
          <form class="col-md-8" action="/users/{{id}}/update/description" method="post">
             <h3>Edit Description</h3>
-            <textarea name="description" rows="8" cols="70"></textarea>
-            <input type="submit" class="btn btn-primary" name="submit" value="Update Description">
+            <textarea name="description" rows="8" cols="70"></textarea><br>
+            <input type="submit" class="btn btn-primary" name="submit" value="Update Description"><br>
          </form>
-         {% endif %}
+         {% endif %}<br>
          <form class="col-md-4" action="/users/{{id}}/update/password" method="post">
             Password:<br>
-            <input type="password" name="password"><br>
+            <input type="password" name="password"><br><br>
             Password Confirmation:<br>
             <input type="password" name="pw_confirm"><br>
             <br>

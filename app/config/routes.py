@@ -17,4 +17,4 @@ routes['POST']['/users/<int:id>/update/description'] = 'Dashboards#update_descri
 routes['POST']['/users/<int:id>/update/password'] = 'Dashboards#update_password'
 routes['GET']['/users/admin_create'] = 'Dashboards#admin_create'
 routes['POST']['/users/register/admin_new'] = 'Dashboards#admin_new'
-routes['GET']['/users/<int:id>/wall'] = 'Walls#wall'
+routes['GET']['/users/<int:id>/wall'] = 'Dashboards#wall'

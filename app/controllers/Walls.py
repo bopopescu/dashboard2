@@ -6,7 +6,9 @@ class Walls(Controller):
 
         self.load_module('Wall')
         self.load_module('Dashboard')
+        self.load_module('Dashboards')
 
     def wall(self, id):
-        messages = self.models['Wall'].get_messages_by_wall(id)
-        return self.load_view('wall.html', messages=messages)
+        print " loading The Wall "*20
+        # messages = self.models['Wall'].get_messages_by_wall(id)
+        return self.load_view('walls/wall.html', messages=messages, id=id)

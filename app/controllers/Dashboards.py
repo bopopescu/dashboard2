@@ -5,6 +5,7 @@ class Dashboards(Controller):
         super(Dashboards, self).__init__(action)
 
         self.load_model('Dashboard')
+        self.load_model('Wall')
 
     def index(self):
         print "index page"
@@ -156,3 +157,8 @@ class Dashboards(Controller):
             print "validation failed"
             flash(creation_status['errors'])
             return redirect('/register')
+
+    def wall(self, id):
+        print " loading The Wall "*20
+        messages = self.models['Wall'].get_messages_by_wall(id)
+        return self.load_view('walls/wall.html', messages=messages, id=id)
