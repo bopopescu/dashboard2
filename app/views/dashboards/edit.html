@@ -33,12 +33,12 @@
             </thead>
             <tbody>
                <tr>
-                  {% if user %}
                   <td>{{user['id']}}</td>
                   <td>{{user['email']}}</td>
                   <td>{{user['first_name']}}</td>
                   <td>{{user['last_name']}}</td>
                   <td>{{user['created_at']}}</td>
+                  {% if session['user_level'] == 9 %}
                   <td>{{user['user_level']}}</td>
                   {% endif %}
                </tr>

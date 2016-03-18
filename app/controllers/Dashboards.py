@@ -159,6 +159,7 @@ class Dashboards(Controller):
             return redirect('/register')
 
     def wall(self, id):
-        print " loading The Wall "*20
+        print " loading The Wall "
+        user = self.models['Dashboard'].get_user_info_by_id(id)
         messages = self.models['Wall'].get_messages_by_wall(id)
-        return self.load_view('walls/wall.html', messages=messages, id=id)
+        return self.load_view('walls/wall.html', messages=messages, user=user, id=id)

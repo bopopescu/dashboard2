@@ -17,14 +17,43 @@
                <p class="navbar-text pull-right"><a href="/logout">Log Out</a></p>
             </ul>
          </nav>
+         <table class="table table-hover table-striped table-condensed">
+            <tbody>
+               <tr>
+                  {% if session['user_level'] == 9 %}
+                  <td>{{user['id']}}</td>
+                  {%endif%}
+                  <td>email: {{user['email']}}</td>
+                  <td>name: {{user['first_name']}} {{user['last_name']}}</td>
+                  <td>user since: {{user['created_at']}}</td>
+                  {% if session['user_level'] == 9 %}
+                  <td>{{user['user_level']}}</td>
+                  {% endif %}
+               </tr>
+            </tbody>
+         </table>
+         <div class="col-md-10">
+         {%if user['description']%}
+               <h3>My Description</h3>
+               {{user['description']}}
+         {%endif%}
+         </div>
+         <div class="col-md-12">
          <h1>My Wall</h1>
          {%if messages%}
             {%for message in messages%}
-               <div class="">
-
-               </div>
+                  {{message}}
+                  <form class="comment" action="/users/add_comment" method="post">
+                     <textarea class="form-control" name="comment_field" rows="2" cols="70"></textarea>
+                     <input type="submit" name="add_comment" value="Add Comment">
+                  </form>
             {%endfor%}
          {%endif%}
+         </div>
+         <form class="comment" action="/users/new_message" method="post">
+            <textarea class="form-control" name="message" rows="4" cols="70"></textarea><br>
+            <input type="submit" class="btn btn-primary" name="message_button" value="New Message">
+         </form>
       </div>
    </body>
 </html>
