@@ -12,6 +12,8 @@
             <ul class="nav nav-pills">
                <li role="presentation"><a href="/dashboard">Dashboard</a></li>
                <li role="presentation"><a href="/users/{{session['id']}}/edit">Profile</a></li>
+               <li role="presentation"><a href="/users/{{session['id']}}/wall">My Wall</a></li>
+               <li role="presentation"><a href="/logout">Log Off</a></li>
             </ul>
          </nav>
          <h2>Edit User Data</h2>
@@ -22,8 +24,10 @@
                   <td> Email </td>
                   <td> First Name </td>
                   <td> Last Name </td>
-                  <td> created_at </td>
-                  <td> user_level </td>
+                  <td> Created On</td>
+                  {% if session['user_level'] == 9 %}
+                  <td> User Level </td>
+                  {% endif %}
                </tr>
             </thead>
             <tbody>
@@ -49,12 +53,13 @@
             <br>
             <input class="btn btn-primary" type="submit" name="submit" value="Update Info">
          </form>
-         {% if session['user_level'] == 1 %}
+         {% if session['user_level'] == 1 or id == session['id'] %}
          <form class="col-md-8" action="/users/{{id}}/update/description" method="post">
             <h3>Edit Description</h3>
             <textarea name="description" rows="8" cols="70"></textarea>
             <input type="submit" class="btn btn-primary" name="submit" value="Update Description">
          </form>
+         {% endif %}
          <form class="col-md-4" action="/users/{{id}}/update/password" method="post">
             Password:<br>
             <input type="password" name="password"><br>
@@ -62,6 +67,15 @@
             <input type="password" name="pw_confirm"><br>
             <br>
             <input class="btn btn-primary" type="submit" name="submit" value="Update Password">
+         </form>
+         {% if session['user_level'] == 9 %}
+         <form class="col-md-3" action="/users/{{id}}/update/user_level" method="post">
+            <h3>Edit User Level</h3>
+            <select class="form-control" name="user_level">
+               <option value="1">User</option>
+               <option value="9">Admin</option><br>
+            </select><br>
+            <input type="submit" class="btn btn-info" name="submit" value="Update User Level">
          </form>
          {% endif %}
       </div>

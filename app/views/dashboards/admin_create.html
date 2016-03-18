@@ -13,10 +13,12 @@
             <ul class="nav nav-pills">
                <li role="presentation"><a href="/dashboard">Dashboard</a></li>
                <li role="presentation"><a href="/users/{{session['id']}}/edit">Profile</a></li>
+               <li role="presentation"><a href="/users/{{session['id']}}/wall">My Wall</a></li>
+               <li role="presentation"><a href="/logout">Log Off</a></li>
             </ul>
          </nav>
          <h2>Create New User</h2>
-         <form class="form-group col-md-3" action="/register/admin_create" method="post">
+         <form class="form-group col-md-3" action="/users/register/admin_new" method="post">
             Email Address:<br>
             <input type="text" name="email"><br>
             First Name:<br>

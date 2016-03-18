@@ -28,11 +28,12 @@
             <ul class="nav nav-pills">
                <li role="presentation"><a href="/dashboard">Dashboard</a></li>
                <li role="presentation"><a href="/users/{{session['id']}}/edit">Profile</a></li>
+               <li role="presentation"><a href="/users/{{session['id']}}/wall">My Wall</a></li>
+               <li role="presentation"><a href="/logout">Log Off</a></li>
             </ul>
          </nav>
-
          {% if session['user_level'] == 9 %}
-            <h2 class="block">Manage Users</h2>
+            <h2 class="block">Manage Users</h2><br>
             <a class="block" href="/users/admin_create"><button class="btn btn-info block" type="button" name="add_new_user">Add New User</button></a>
          {% else %}
             <h2>All Users</h2>
