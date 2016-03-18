@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+      <link rel="stylesheet" href="static/css/styles.css">
+      <title>Home Page</title>
+   </head>
+   <body>
+      <div class="container">
+         <nav class="navbar-static-top">
+            <ul class="nav nav-pills">
+               <li role="presentation"><a href="/dashboard">Dashboard</a></li>
+               <li role="presentation"><a href="/users/{{session['id']}}/edit">Profile</a></li>
+            </ul>
+         </nav>
+         <div class="col-md-10">
+            <h1>Welcome to the Test</h1>
+            <h4>We're going to build a cool application using an MVC framework!</h4>
+            <a href="/register" class="btn btn-primary">Let's Start!</a>
+            </form>
+         </div>
+         <div class="col-md-3">
+            <h5>Manage Users</h5>
+            <p>
+               Using this application, you'll learn how to add, remove, and edit users for the application.
+            </p>
+         </div>
+         <div class="col-md-3">
+            <h5>Leave Messages</h5>
+            <p>
+               Using this application, you'll learn how to add, remove, and edit users for the application.
+            </p>
+         </div>
+         <div class="col-md-3">
+            <h5>Edit User Information</h5>
+            <p>
+               Using this application, you'll learn how to add, remove, and edit users for the application.
+            </p>
+         </div>
+      </div>
+   </body>
+</html>

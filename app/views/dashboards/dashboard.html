@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+      <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+      <script type="text/javascript">
+         $(document).ready(function() {
+            $('a[data-confirm]').click(function(ev) {
+            var href = $(this).attr('href');
+            if (!$('#dataConfirmModal').length) {
+            $('body').append('<div id="dataConfirmModal" class="modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel">Please Confirm</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div>');
+            }
+            $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+            $('#dataConfirmOK').attr('href', href);
+            $('#dataConfirmModal').modal({show:true});
+            return false;
+            });
+         });
+      </script>
+      <link rel="stylesheet" href="static/css/styles.css">
+      <title>User Dashboard</title>
+   </head>
+   <body>
+      <div class="container">
+         <nav class="navbar-static-top">
+            <ul class="nav nav-pills">
+               <li role="presentation"><a href="/dashboard">Dashboard</a></li>
+               <li role="presentation"><a href="/users/{{session['id']}}/edit">Profile</a></li>
+            </ul>
+         </nav>
+
+         {% if session['user_level'] == 9 %}
+            <h2 class="block">Manage Users</h2>
+            <a class="block" href="/users/admin_create"><button class="btn btn-info block" type="button" name="add_new_user">Add New User</button></a>
+         {% else %}
+            <h2>All Users</h2>
+         {% endif %}
+         <table class="table table-hover table-striped table-condensed">
+            <thead>
+               <tr>
+                  <td> ID </td>
+                  <td> Email </td>
+                  <td> First Name </td>
+                  <td> Last Name </td>
+                  <td> created_at </td>
+                  <td> user_level </td>
+                  {% if session['user_level'] == 9 %}
+                  <td> action </td>
+                  {% endif %}
+               </tr>
+            </thead>
+            <tbody>
+                  {% for user in users %}
+                     <tr>
+                        <td>{{user['id']}}</td>
+                        <td>{{user['email']}}</td>
+                        <td>{{user['first_name']}}</td>
+                        <td>{{user['last_name']}}</td>
+                        <td>{{user['created_at']}}</td>
+                        <td>{{user['user_level']}}</td>
+                        {% if session['user_level'] == 9 %}
+                           <td><a href="/users/{{user['id']}}/edit">edit</a>
+                           <a href="/users/{{user['id']}}/destroy" class="modal-body" data-confirm="Are you sure you want to delete?">remove</a></td>
+                        {% endif %}
+                     </tr>
+                  {% endfor %}
+            </tbody>
+         </table><br>
+         <a href="/logout">log out</a>
+      </div>
+   </body>
+</html>
