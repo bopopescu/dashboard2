@@ -42,16 +42,25 @@
          <h1>My Wall</h1>
          {%if messages%}
             {%for message in messages%}
-                  {{message}}
-                  <form class="comment" action="/users/add_comment" method="post">
-                     <textarea class="form-control" name="comment_field" rows="2" cols="70"></textarea>
-                     <input type="submit" name="add_comment" value="Add Comment">
-                  </form>
+               <p class="lead col-md-10">{{user['first_name']}} {{user['last_name']}}: {{ message['content']}}</p>
+               {% if user['id'] == session['id'] %}
+                  <p class="col-md-2 pull-right"><a href="/wall/remove_post/{{message['id']}}">remove post</a></p>
+               {% endif %}
+               <!-- <h2>{{comments}}</h2> -->
+               {% for comment in comments %}
+                  <p class="col-md-9 pull-right">{{comments['user_id']}}: {{comment['content']}}</p>
+               {% endfor %}
+               <form class="comment" action="/wall/{{message['id']}}/add_comment" method="post">
+                  <textarea class="form-control" name="content" rows="2" cols="70"></textarea><br>
+                  <input type="hidden" name="wall_id" value="{{user['id']}}">
+                  <input type="submit" class="btn btn-info" name="add_comment" value="Add Comment">
+               </form><br>
             {%endfor%}
          {%endif%}
          </div>
-         <form class="comment" action="/users/new_message" method="post">
-            <textarea class="form-control" name="message" rows="4" cols="70"></textarea><br>
+         <form class="message" action="/wall/new_message" method="post">
+            <input type="hidden" name="wall_id" value="{{user['id']}}">
+            <textarea class="form-control" name="content" rows="4" cols="70"></textarea><br>
             <input type="submit" class="btn btn-primary" name="message_button" value="New Message">
          </form>
       </div>

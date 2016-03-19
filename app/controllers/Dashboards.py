@@ -162,4 +162,36 @@ class Dashboards(Controller):
         print " loading The Wall "
         user = self.models['Dashboard'].get_user_info_by_id(id)
         messages = self.models['Wall'].get_messages_by_wall(id)
-        return self.load_view('walls/wall.html', messages=messages, user=user, id=id)
+        comments_result = self.models['Wall'].get_comments_by_wall(id)
+        return self.load_view('walls/wall.html', messages=messages, user=user, id=id, comments=comments_result)
+
+    def new_message(self):
+        print "new message function"
+        print request.form['content']
+        print request.form['wall_id']
+        message_data = {
+        "content" : request.form['content'],
+        "posted_by" : session['id'],
+        "wall_id" : request.form['wall_id']
+        }
+        print message_data
+        self.models['Wall'].create_message(message_data)
+        print "message posted successfully"
+        return redirect('/users/'+str(request.form['wall_id'])+'/wall')
+
+    def add_comment(self, id):
+        print "new comment"
+        comment_data = {
+        "content" : request.form['content'],
+        "message_id" : id,
+        "posted_by": session['id']
+        }
+        print comment_data
+        print "comment"*250
+        self.models['Wall'].add_comment(comment_data)
+        return redirect('/users/'+str(request.form['wall_id'])+'/wall')
+
+    def remove_post(self, id):
+        print "deleting post"
+        self.models['Wall'].remove_post(id)
+        return redirect('/dashboard')
