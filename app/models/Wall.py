@@ -6,13 +6,13 @@ class Wall(Model):
 
     def get_messages_by_wall(self, userid):
         print "retrieving messages from db"
-        messages_query = "SELECT * FROM messages WHERE wall_id = %s"
+        messages_query = "SELECT messages.id, messages.content, messages.wall_id, messages.created_at, CONCAT_WS(' ',users.first_name, users.last_name) AS message_poster_name FROM messages JOIN users ON messages.posted_by = users.id WHERE wall_id = %s"
         messages_data = [userid]
         return self.db.query_db(messages_query, messages_data)
 
     def get_comments_by_wall(self, userid):
         print "retrieving comments from db"
-        comments_query = "SELECT comments.id, comments.content, comments.posted_by, comments.message_id, messages.wall_id FROM comments JOIN messages ON comments.message_id = messages.id WHERE messages.wall_id = %s"
+        comments_query = "SELECT comments.id, comments.content, comments.posted_by, comments.message_id, messages.wall_id, CONCAT_WS(' ',users.first_name, users.last_name) AS posted_by_name FROM comments JOIN messages ON comments.message_id = messages.id JOIN users ON comments.posted_by = users.id WHERE messages.wall_id = %s"
         comments_data = [userid]
         comments_result = self.db.query_db(comments_query, comments_data)
         print ":::::comments data::::",comments_result

@@ -51,7 +51,7 @@
                   {% for user in users %}
                      <tr>
                         <td>{{user['id']}}</td>
-                        <td>{{user['email']}}</td>
+                        <td><a href="/users/{{user['id']}}/wall">{{user['email']}}</a></td>
                         <td>{{user['first_name']}}</td>
                         <td>{{user['last_name']}}</td>
                         <td>{{user['created_at']}}</td>

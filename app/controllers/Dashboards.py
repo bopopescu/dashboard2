@@ -32,7 +32,8 @@ class Dashboards(Controller):
         print "creation validation running"
         if creation_status['status'] == True:
             self.models['Dashboard'].new_user(user_info)
-            session['id'] = self.models['Dashboard'].get_user_info_by_email(user_info)
+            user_info = self.models['Dashboard'].get_user_info_by_email(user_info)
+            session['id'] =  user_info['id']
             return redirect('/dashboard')
         else:
             print "validation failed"
@@ -160,6 +161,7 @@ class Dashboards(Controller):
 
     def wall(self, id):
         print " loading The Wall "
+        print "current session id =", session['id']
         user = self.models['Dashboard'].get_user_info_by_id(id)
         messages = self.models['Wall'].get_messages_by_wall(id)
         comments_result = self.models['Wall'].get_comments_by_wall(id)
@@ -169,9 +171,10 @@ class Dashboards(Controller):
         print "new message function"
         print request.form['content']
         print request.form['wall_id']
+        poster = session['id']
         message_data = {
         "content" : request.form['content'],
-        "posted_by" : session['id'],
+        "posted_by" : poster,
         "wall_id" : request.form['wall_id']
         }
         print message_data
@@ -180,6 +183,7 @@ class Dashboards(Controller):
         return redirect('/users/'+str(request.form['wall_id'])+'/wall')
 
     def add_comment(self, id):
+        print session['id'], id
         print "new comment"
         comment_data = {
         "content" : request.form['content'],
@@ -187,7 +191,7 @@ class Dashboards(Controller):
         "posted_by": session['id']
         }
         print comment_data
-        print "comment"*250
+        print "comment"
         self.models['Wall'].add_comment(comment_data)
         return redirect('/users/'+str(request.form['wall_id'])+'/wall')
 
